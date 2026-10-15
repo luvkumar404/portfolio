@@ -6,7 +6,7 @@ export function Stack() {
   return (
     <section className="flex flex-col gap-8">
       {/* Heading */}
-      <h2 className="text-[1.1rem] md:text-[1.25rem] font-semibold text-[#171717]">
+      <h2 className="text-[1.1rem] md:text-[1.25rem] font-semibold text-foreground">
         Tech Stack
       </h2>
 
@@ -22,7 +22,7 @@ export function Stack() {
               <span className="font-mono text-sm font-semibold text-[#71717A]">
                 {group.number}
               </span>
-              <h3 className="text-[0.8125rem] font-bold uppercase tracking-wider text-[#171717]">
+              <h3 className="text-[0.8125rem] font-bold uppercase tracking-wider text-foreground">
                 {group.category}
               </h3>
             </div>
@@ -32,7 +32,7 @@ export function Stack() {
               {group.items.map((item) => (
                 <span
                   key={item.name}
-                  className="inline-flex items-center gap-2 font-mono text-[0.8125rem] text-[#171717]"
+                  className="inline-flex items-center gap-2 font-mono text-[0.8125rem] text-foreground"
                 >
                   <img
                     src={item.icon}

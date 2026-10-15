@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback, memo } from "react"
 import type { ToolItem } from "@/lib/data/experience"
 
-function ToolTile({ tool, isExpanded, onHover, onLeave }: {
+const ToolTile = memo(function ToolTile({ tool, isExpanded, onHover, onLeave }: {
   tool: ToolItem
   isExpanded: boolean
   onHover: () => void
@@ -14,15 +14,15 @@ function ToolTile({ tool, isExpanded, onHover, onLeave }: {
   return (
     <div
       aria-label={tool.name}
-      title={tool.name}
       className={[
-        "inline-flex items-center justify-center gap-2 rounded-lg overflow-hidden whitespace-nowrap cursor-default select-none",
-        "h-[42px] shrink-0",
-        "transition-all duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)]",
+        "relative inline-flex items-center justify-center rounded-lg cursor-default select-none",
+        "w-12 h-12 shrink-0",
+        "transition-[background-color,border-color] duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]",
         "motion-reduce:transition-none",
+        "outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1",
         isExpanded
-          ? "w-auto px-3.5 bg-muted/80 border border-border"
-          : "w-[42px] bg-muted/40 border border-dashed border-border/30 hover:bg-muted/60",
+          ? "bg-muted/80 border border-border"
+          : "bg-muted/40 border border-dashed border-border/30 hover:bg-muted/60",
       ].join(" ")}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
@@ -31,7 +31,8 @@ function ToolTile({ tool, isExpanded, onHover, onLeave }: {
         <img
           src={tool.icon}
           alt=""
-          className="w-5 h-5 object-contain shrink-0"
+          draggable={false}
+          className="w-6 h-6 object-contain shrink-0 select-none pointer-events-none"
           onError={() => setIconError(true)}
         />
       ) : (
@@ -40,35 +41,46 @@ function ToolTile({ tool, isExpanded, onHover, onLeave }: {
         </span>
       )}
 
+      {/* Tooltip — absolutely positioned, outside the flex flow */}
       <span
         className={[
-          "text-[0.8125rem] font-semibold text-foreground whitespace-nowrap overflow-hidden",
-          "motion-reduce:transition-none",
+          "absolute left-1/2 -translate-x-1/2 bottom-full mb-2",
+          "px-2.5 py-1 rounded-md text-xs font-semibold text-foreground bg-muted border border-border shadow-sm",
+          "whitespace-nowrap pointer-events-none",
+          "transition-[opacity,transform] duration-150 ease-[cubic-bezier(0.4,0,0.2,1)]",
           isExpanded
-            ? "max-w-[120px] opacity-100 transition-[max-width,opacity] duration-[250ms] delay-[100ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
-            : "max-w-0 opacity-0 transition-[max-width,opacity] duration-[100ms] delay-0 ease-[cubic-bezier(0.4,0,0.2,1)]",
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-1",
         ].join(" ")}
       >
         {tool.name}
       </span>
     </div>
   )
-}
+})
 
-export function ToolTileRow({ tools }: { tools: ToolItem[] }) {
+export const ToolTileRow = memo(function ToolTileRow({ tools }: { tools: ToolItem[] }) {
   const [hoveredTool, setHoveredTool] = useState<string | null>(null)
 
+  const handleHover = useCallback((name: string) => {
+    setHoveredTool(name)
+  }, [])
+
+  const handleLeave = useCallback(() => {
+    setHoveredTool(null)
+  }, [])
+
   return (
-    <div className="flex flex-wrap gap-2.5">
+    <div className="flex flex-nowrap gap-2.5 h-12">
       {tools.map((tool) => (
         <ToolTile
           key={tool.name}
           tool={tool}
           isExpanded={hoveredTool === tool.name}
-          onHover={() => setHoveredTool(tool.name)}
-          onLeave={() => setHoveredTool(null)}
+          onHover={() => handleHover(tool.name)}
+          onLeave={handleLeave}
         />
       ))}
     </div>
   )
-}
+})
