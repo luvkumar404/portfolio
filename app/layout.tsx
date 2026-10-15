@@ -1,19 +1,46 @@
 import type { Metadata } from "next";
-import { Schibsted_Grotesk, JetBrains_Mono } from "next/font/google";
+import {
+  Fira_Code,
+  Fraunces,
+  Funnel_Display,
+  Open_Sans,
+  Saira,
+} from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
-import { ThemeProvider } from "@/components/theme-provider";
 
-const grotesk = Schibsted_Grotesk({
+const firaCode = Fira_Code({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-grotesk",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-mono",
 });
 
-const mono = JetBrains_Mono({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
+  weight: "variable",
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+  variable: "--font-fraunces",
+});
+
+const funnelDisplay = Funnel_Display({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-display",
+});
+
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
+  variable: "--font-sans",
+});
+
+const saira = Saira({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-saira",
 });
 
 export const metadata: Metadata = {
@@ -29,14 +56,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${grotesk.variable} ${mono.variable} scroll-smooth`}
+      className={`dark ${firaCode.variable} ${fraunces.variable} ${funnelDisplay.variable} ${openSans.variable} ${saira.variable} scroll-smooth`}
       suppressHydrationWarning
     >
-      <body className="font-sans antialiased min-h-screen">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
-          {children}
-        </ThemeProvider>
+      <body className="font-body antialiased min-h-screen bg-background text-foreground">
+        <Navbar />
+        {children}
       </body>
     </html>
   );

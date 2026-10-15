@@ -1,24 +1,22 @@
 import { projects } from "@/lib/data/projects"
 import { ExternalLink, Briefcase, Share2, Sparkles, Layout, ArrowRight } from "lucide-react"
 import { GithubIcon } from "@/components/shared/social-button"
+import { ToolTileRow } from "@/components/shared/tool-tile-row"
 
 export function Projects() {
   return (
     <section id="projects" className="w-full py-8 pb-16 scroll-mt-20">
-      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 flex flex-col gap-8">
+      <div className="max-w-[1440px] mx-auto w-full px-4 sm:px-6 flex flex-col gap-8">
         
         {/* Header */}
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-            Selected Projects
+            Projects
           </h2>
-          <p className="text-gray-600 dark:text-neutral-400">
-            Things I&apos;ve built and shipped
-          </p>
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project, idx) => {
             // Icon and gradient mapping
             let ProjectIcon = Briefcase;
@@ -42,16 +40,16 @@ export function Projects() {
             return (
               <article 
                 key={idx}
-                className="group flex flex-col bg-white dark:bg-neutral-900 rounded-2xl border border-gray-200 dark:border-neutral-800 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-gray-900 dark:hover:border-neutral-700 transition-all duration-200 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:focus-within:ring-offset-neutral-900"
+                className="group flex flex-col bg-white dark:bg-neutral-900 rounded-2xl border border-gray-200 dark:border-neutral-800 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-gray-900 dark:hover:border-neutral-700 transition-[box-shadow,transform,border-color] duration-200 will-change-transform overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:focus-within:ring-offset-neutral-900"
                 style={{ animation: `fadeUp 0.5s ease-out ${idx * 0.08}s both` }}
               >
                 {/* Visual Area */}
-                <div className={`relative flex items-center justify-center bg-gradient-to-br ${bgGradient} h-32 shrink-0 overflow-hidden`}>
-                  <ProjectIcon className={`w-10 h-10 ${iconColor} transition-transform duration-300 group-hover:scale-105`} />
+                <div className={`relative flex items-center justify-center bg-gradient-to-br ${bgGradient} h-40 shrink-0 overflow-hidden`}>
+                  <ProjectIcon className={`w-12 h-12 ${iconColor} transition-transform duration-300 group-hover:scale-105`} />
                 </div>
 
                 {/* Content Area */}
-                <div className="flex flex-col flex-1 p-5">
+                <div className="flex flex-col flex-1 p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-xs font-semibold text-gray-500 dark:text-neutral-400 uppercase tracking-wider">
                       {String(idx + 1).padStart(2, '0')}
@@ -62,25 +60,21 @@ export function Projects() {
                     </span>
                   </div>
                   
-                  <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     <a href={project.repoUrl || project.liveUrl || "#"} target="_blank" rel="noopener noreferrer" className="outline-none">
                       <span className="absolute inset-0" aria-hidden="true" />
                       {project.title}
                     </a>
                   </h3>
                   
-                  <p className="text-sm text-gray-600 dark:text-neutral-400 leading-relaxed line-clamp-3 mb-6">
+                  <p className="text-base text-gray-600 dark:text-neutral-400 leading-relaxed line-clamp-3 mb-6">
                     {project.description}
                   </p>
 
                   <div className="mt-auto flex flex-col gap-5">
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 relative z-10 pointer-events-none">
-                      {project.tags.map(tag => (
-                        <span key={tag} className="text-xs font-medium bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-neutral-300 px-2.5 py-1 rounded-full">
-                          {tag}
-                        </span>
-                      ))}
+                    {/* Tech Stack Icons */}
+                    <div className="flex flex-nowrap gap-2 relative z-10 pointer-events-auto overflow-visible">
+                      <ToolTileRow tools={project.tools} />
                     </div>
 
                     {/* Footer Links */}
@@ -94,7 +88,7 @@ export function Projects() {
                         >
                           <ExternalLink className="w-4 h-4" />
                           <span>Live Demo</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:translate-x-1 transition-all" />
+                          <ArrowRight className="w-3.5 h-3.5 opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:translate-x-1 transition-[opacity,transform] duration-200" />
                         </a>
                       )}
                       {project.repoUrl && (
@@ -106,7 +100,7 @@ export function Projects() {
                         >
                           <GithubIcon className="w-4 h-4" />
                           <span>Code</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:translate-x-1 transition-all" />
+                          <ArrowRight className="w-3.5 h-3.5 opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:translate-x-1 transition-[opacity,transform] duration-200" />
                         </a>
                       )}
                     </div>
