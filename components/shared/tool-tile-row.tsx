@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useCallback, memo } from "react"
+import { cn } from "@/lib/utils"
 import type { ToolItem } from "@/lib/data/experience"
 
 const ToolTile = memo(function ToolTile({ tool, isExpanded, onHover, onLeave }: {
@@ -59,7 +60,7 @@ const ToolTile = memo(function ToolTile({ tool, isExpanded, onHover, onLeave }: 
   )
 })
 
-export const ToolTileRow = memo(function ToolTileRow({ tools }: { tools: ToolItem[] }) {
+export const ToolTileRow = memo(function ToolTileRow({ tools, className }: { tools: ToolItem[]; className?: string }) {
   const [hoveredTool, setHoveredTool] = useState<string | null>(null)
 
   const handleHover = useCallback((name: string) => {
@@ -71,7 +72,7 @@ export const ToolTileRow = memo(function ToolTileRow({ tools }: { tools: ToolIte
   }, [])
 
   return (
-    <div className="flex flex-nowrap gap-2.5 h-12">
+    <div className={cn("flex flex-wrap gap-2.5", className)}>
       {tools.map((tool) => (
         <ToolTile
           key={tool.name}

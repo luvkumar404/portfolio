@@ -6,18 +6,18 @@ const S = "https://cdn.simpleicons.org";
 export type Project = {
   title: string;
   description: string;
-  category: string;
+  category?: string;
   tools: ToolItem[];
   liveUrl?: string;
   repoUrl?: string;
   featured?: boolean;
-}
+};
 
 export const projects: Project[] = [
   {
     title: "Agentic AI Builder",
-    description: "Turns plain-English prompts into working React apps using streaming AI code generation, a live sandboxed preview, and credit-based billing.",
-    category: "AI",
+    description:
+      "Turns plain-English prompts into working React apps using streaming AI code generation, a live sandboxed preview, and credit-based billing.",
     tools: [
       { name: "Next.js", icon: `${D}/nextjs/nextjs-original.svg` },
       { name: "TypeScript", icon: `${D}/typescript/typescript-original.svg` },
@@ -29,8 +29,8 @@ export const projects: Project[] = [
   },
   {
     title: "Marketing ERP",
-    description: "A role-based ERP for marketing teams featuring isolated workflows, full RESTful APIs for payroll and targets, and automated credential delivery.",
-    category: "Full-Stack",
+    description:
+      "A role-based ERP for marketing teams featuring isolated workflows, full RESTful APIs for payroll and targets, and automated credential delivery.",
     tools: [
       { name: "Node.js", icon: `${D}/nodejs/nodejs-original.svg` },
       { name: "Express", icon: `${D}/express/express-original.svg` },
@@ -41,8 +41,8 @@ export const projects: Project[] = [
   },
   {
     title: "FileShare",
-    description: "A secure file-sharing platform with fine-grained access control, password-protected share links, audit logs, and integrated private cloud storage.",
-    category: "Security",
+    description:
+      "A secure file-sharing platform with fine-grained access control, password-protected share links, audit logs, and integrated private cloud storage.",
     tools: [
       { name: "React.js", icon: `${D}/react/react-original.svg` },
       { name: "Bun.js", icon: `${D}/bun/bun-original.svg` },
@@ -53,8 +53,8 @@ export const projects: Project[] = [
   },
   {
     title: "Personal Portfolio",
-    description: "A modern, responsive personal portfolio website built with Next.js and Tailwind CSS. Features dynamic animations and a sleek dark mode design.",
-    category: "Web",
+    description:
+      "A modern, responsive personal portfolio website built with Next.js and Tailwind CSS. Features dynamic animations and a sleek dark mode design.",
     tools: [
       { name: "Next.js", icon: `${D}/nextjs/nextjs-original.svg` },
       { name: "Tailwind CSS", icon: `${D}/tailwindcss/tailwindcss-original.svg` },
@@ -62,6 +62,6 @@ export const projects: Project[] = [
       { name: "shadcn/ui", icon: `${S}/shadcnui` },
     ],
     repoUrl: "https://github.com/luvkumar404/my-portfolio",
-    liveUrl: "https://luv.vercel.app", // Adjust if there's a known live url
-  }
+    liveUrl: "https://luv.vercel.app",
+  },
 ];

@@ -36,9 +36,9 @@ export const experience: ExperienceData[] = [
       { name: "Gemini", icon: `${S}/googlegemini` },
     ],
     achievements: [
-      "Built a live SEO analytics dashboard so marketing teams could track campaign performance and get insights in real time.",
-      "Sped up API responses by ~20% through backend query tuning and cutting unnecessary frontend re-renders via memoization.",
-      "Wrote 100+ unit tests reaching 90%+ coverage across the stack, cutting down regressions and making deploys safer."
+      "Built a real-time SEO analytics dashboard, enabling marketing teams to monitor campaign page performance and surface actionable insights instantly.",
+      "Reduced API response time by 20% by optimizing backend database queries and eliminating redundant React rerenders through memoization and component restructuring.",
+      "Authored 100+ Jest unit tests achieving 90%+ code coverage across frontend and backend, reducing production regressions and enabling safer, faster deploys."
     ]
   }
 ];

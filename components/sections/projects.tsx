@@ -15,9 +15,11 @@ export function Projects() {
           </h2>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Rows */}
+        <div className="flex flex-col gap-[72px]">
           {projects.map((project, idx) => {
+            const isEven = idx % 2 === 1;
+
             // Icon and gradient mapping
             let ProjectIcon = Briefcase;
             let bgGradient = "from-blue-100 to-blue-50 dark:from-blue-900/20 dark:to-blue-800/10";
@@ -40,23 +42,37 @@ export function Projects() {
             return (
               <article 
                 key={idx}
-                className="group flex flex-col bg-white dark:bg-neutral-900 rounded-2xl border border-gray-200 dark:border-neutral-800 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-gray-900 dark:hover:border-neutral-700 transition-[box-shadow,transform,border-color] duration-200 will-change-transform overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:focus-within:ring-offset-neutral-900"
+                className={`group project-row grid grid-cols-1 min-[800px]:grid-cols-12 items-center ${
+                  isEven ? "min-[800px]:-mt-6 even:min-[800px]:-mt-6" : ""
+                }`}
                 style={{ animation: `fadeUp 0.5s ease-out ${idx * 0.08}s both` }}
               >
-                {/* Visual Area */}
-                <div className={`relative flex items-center justify-center bg-gradient-to-br ${bgGradient} h-40 shrink-0 overflow-hidden`}>
-                  <ProjectIcon className={`w-12 h-12 ${iconColor} transition-transform duration-300 group-hover:scale-105`} />
+                {/* Visual Area (Image Block) */}
+                <div 
+                  className={`relative flex items-center justify-center bg-gradient-to-br ${bgGradient} aspect-[16/10] w-full rounded-2xl border border-gray-200 dark:border-neutral-800 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-gray-900 dark:hover:border-neutral-700 transition-[box-shadow,transform,border-color] duration-200 will-change-transform overflow-hidden col-span-1 min-[800px]:col-span-6 min-[800px]:row-start-1 ${
+                    isEven ? "min-[800px]:col-start-7" : "min-[800px]:col-start-1"
+                  }`}
+                >
+                  {(project as any).image ? (
+                    <img 
+                      src={(project as any).image} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover" 
+                    />
+                  ) : (
+                    <ProjectIcon className={`w-12 h-12 ${iconColor} transition-transform duration-300 group-hover:scale-105`} />
+                  )}
                 </div>
 
-                {/* Content Area */}
-                <div className="flex flex-col flex-1 p-6">
+                {/* Content Area (Text Block) */}
+                <div 
+                  className={`flex flex-col flex-1 pt-6 min-[800px]:pt-0 col-span-1 min-[800px]:col-span-5 min-[800px]:row-start-1 ${
+                    isEven ? "min-[800px]:col-start-1" : "min-[800px]:col-start-8"
+                  }`}
+                >
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-xs font-semibold text-gray-500 dark:text-neutral-400 uppercase tracking-wider">
                       {String(idx + 1).padStart(2, '0')}
-                    </span>
-                    <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-neutral-700" />
-                    <span className="text-xs font-semibold text-gray-500 dark:text-neutral-400 uppercase tracking-wider">
-                      {project.category}
                     </span>
                   </div>
                   
@@ -67,13 +83,13 @@ export function Projects() {
                     </a>
                   </h3>
                   
-                  <p className="text-base text-gray-600 dark:text-neutral-400 leading-relaxed line-clamp-3 mb-6">
+                  <p className="text-base text-gray-600 dark:text-neutral-400 leading-relaxed mb-6">
                     {project.description}
                   </p>
 
                   <div className="mt-auto flex flex-col gap-5">
                     {/* Tech Stack Icons */}
-                    <div className="flex flex-nowrap gap-2 relative z-10 pointer-events-auto overflow-visible">
+                    <div className="flex flex-wrap gap-2 relative z-10 pointer-events-auto overflow-visible">
                       <ToolTileRow tools={project.tools} />
                     </div>
 
@@ -115,6 +131,11 @@ export function Projects() {
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @media (min-width: 800px) {
+          .project-row:nth-child(even) {
+            margin-top: -24px;
+          }
         }
       `}} />
     </section>

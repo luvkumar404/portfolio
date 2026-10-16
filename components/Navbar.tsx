@@ -7,7 +7,8 @@ import { Menu, X } from "lucide-react"
 
 const navbarLinks = [
   { name: "Home", url: "/" },
-  { name: "Work", url: "/#projects" },
+  { name: "Work", url: "/#experience" },
+  { name: "Projects", url: "/#projects" },
   { name: "Blog", url: "/blog" },
   { name: "Resume", url: "/resume.pdf" }
 ]
